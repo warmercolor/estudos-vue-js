@@ -4,22 +4,24 @@ import useSupabase from 'boot/supabase'
 const user = ref(null)
 
 export default function UseAuthUser () {
-  const { supabase } = useSupabase()
+  const supabase = useSupabase()
+
+  console.log(supabase.auth)
 
   const login = async ({ email, password }) => {
-    const { user, error } = await supabase.auth.signIn({ email, password })
+    const { user, error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) throw error
     return user
   }
 
   const loginWithSocialProvider = async (provider) => {
-    const { user, error } = await supabase.auth.signIn(provider)
+    const { user, error } = await supabase.auth.signIn({ provider })
     if (error) throw error
     return user
   }
 
   const logout = async () => {
-    const error = await supabase.auth.signOut()
+    const { error } = await supabase.auth.signOut()
     if (error) throw error
   }
 
@@ -45,10 +47,9 @@ export default function UseAuthUser () {
     return user
   }
 
-  const sendPasswordRestEmail = async (email) => {
-    const { user, error } = await supabase.auth.api.resetPasswordForEmail(email)
+  const resetPasswordForEmail = async (email) => {
+    const { error } = await supabase.auth.api.resetPasswordForEmail(email)
     if (error) throw error
-    return user
   }
 
   return {
@@ -59,6 +60,6 @@ export default function UseAuthUser () {
     isLoggedIn,
     register,
     update,
-    sendPasswordRestEmail
+    resetPasswordForEmail
   }
 }
