@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page padding>
     <p class="text-h6">
       Login
     </p>
