@@ -1,10 +1,9 @@
-import { ref } from "vue"
-import useSupabase from "src/boot/supabase"
+import { ref } from 'vue'
+import useSupabase from 'boot/supabase'
 
 const user = ref(null)
 
-export default function UseAuthUser() {
-
+export default function UseAuthUser () {
   const { supabase } = useSupabase()
 
   const login = async ({ email, password }) => {
@@ -60,6 +59,6 @@ export default function UseAuthUser() {
     isLoggedIn,
     register,
     update,
-    sendPasswordRestEmail,
+    sendPasswordRestEmail
   }
 }
